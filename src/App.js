@@ -1,8 +1,7 @@
-import React, { Component, Suspense, lazy } from 'react';
-import Layout from './Layout';
-import './App.css';
-const ToDo = lazy(() => import('./ToDo/'));
-
+import React, { Component, Suspense, lazy } from "react";
+import Layout from "./Layout";
+import "./App.css";
+const ToDo = lazy(() => import("./ToDo/"));
 
 class App extends Component {
   render() {
