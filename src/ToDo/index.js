@@ -3,7 +3,7 @@ import { Skeleton, Row, Col, Table } from "antd";
 
 import Input from "../components/Input";
 import Buttons from "../components/Buttons";
-import { COLUMNS, buttons } from "./columns";
+import { COLUMNS, BUTTONS } from "./columns";
 import "./todo.css";
 
 const todoList = "todoList";
@@ -81,7 +81,7 @@ class ToDo extends PureComponent {
             <Row>
               <Buttons
                 show={show => this.setState({ show })}
-                buttons={buttons}
+                buttons={BUTTONS}
               />
             </Row>
             <Col className="col">
