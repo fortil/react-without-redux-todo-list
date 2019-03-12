@@ -1,12 +1,18 @@
 import React, { PureComponent } from "react";
-import { Skeleton, Row, Col, Button, Input, Table } from "antd";
+import { Skeleton, Row, Col, Button, Table } from "antd";
 
+import Input from "../components/Input";
 import { COLUMNS, buttons } from "./columns";
 import "./todo.css";
 
 const todoList = "todoList";
 
 class ToDo extends PureComponent {
+  state = {
+    show: "All",
+    data: []
+  };
+
   componentDidMount() {
     let data = localStorage.getItem(todoList);
     data = JSON.parse(data || "[]");
@@ -14,17 +20,11 @@ class ToDo extends PureComponent {
       this.setState({ data });
     }
   }
-  state = {
-    newTask: "",
-    show: "All",
-    data: []
-  };
 
-  addNewTask = () => {
-    const { data, newTask } = this.state;
+  addNewTask = newTask => {
+    const { data } = this.state;
     const newData = {
-      data: [...data, { description: newTask, state: "ToDo" }],
-      newTask: ""
+      data: [...data, { description: newTask, state: "ToDo" }]
     };
     localStorage.setItem(todoList, JSON.stringify(newData.data));
     this.setState(newData);
@@ -63,7 +63,7 @@ class ToDo extends PureComponent {
   };
 
   render() {
-    const { data, newTask, show } = this.state;
+    const { data, show } = this.state;
     const { addNewTask, renderActions } = this;
     const dataSource = data.filter(
       ({ state }) => show === "All" || state === show
@@ -75,14 +75,7 @@ class ToDo extends PureComponent {
           <React.Fragment>
             <Col span={21} className="todo">
               <Col className="col">
-                <Input
-                  placeholder="Add a new task"
-                  onPressEnter={addNewTask}
-                  onChange={({ target }) =>
-                    this.setState({ newTask: target.value })
-                  }
-                  value={newTask}
-                />
+                <Input click={addNewTask} />
               </Col>
               <Row>
                 {buttons.map(({ name }) => (
