@@ -1,7 +1,8 @@
 import React, { PureComponent } from "react";
-import { Skeleton, Row, Col, Button, Table } from "antd";
+import { Skeleton, Row, Col, Table } from "antd";
 
 import Input from "../components/Input";
+import Buttons from "../components/Buttons";
 import { COLUMNS, buttons } from "./columns";
 import "./todo.css";
 
@@ -37,6 +38,7 @@ class ToDo extends PureComponent {
         ? { ...rest, description, state }
         : { ...rest, description }
     );
+    localStorage.setItem(todoList, JSON.stringify(data));
     this.setState({ data: [...data] });
   };
 
@@ -72,42 +74,33 @@ class ToDo extends PureComponent {
     return (
       <Row type="flex" justify="center">
         <Skeleton loading={false} active>
-          <React.Fragment>
-            <Col span={21} className="todo">
-              <Col className="col">
-                <Input click={addNewTask} />
-              </Col>
-              <Row>
-                {buttons.map(({ name }) => (
-                  <Col key={name} span={8}>
-                    <Button
-                      block
-                      type={name === show ? "primary" : "secondary"}
-                      onClick={() => this.setState({ show: name })}
-                    >
-                      {name}
-                    </Button>
-                  </Col>
-                ))}
-              </Row>
-              <Col className="col">
-                <Table
-                  rowKey="description"
-                  bordered
-                  pagination={false}
-                  dataSource={dataSource}
-                  columns={COLUMNS.concat([
-                    {
-                      title: "Action",
-                      dataIndex: "",
-                      key: "x",
-                      render: renderActions
-                    }
-                  ])}
-                />
-              </Col>
+          <Col span={21} className="todo">
+            <Col className="col">
+              <Input click={addNewTask} />
             </Col>
-          </React.Fragment>
+            <Row>
+              <Buttons
+                show={show => this.setState({ show })}
+                buttons={buttons}
+              />
+            </Row>
+            <Col className="col">
+              <Table
+                rowKey="description"
+                bordered
+                pagination={false}
+                dataSource={dataSource}
+                columns={COLUMNS.concat([
+                  {
+                    title: "Action",
+                    dataIndex: "",
+                    key: "x",
+                    render: renderActions
+                  }
+                ])}
+              />
+            </Col>
+          </Col>
         </Skeleton>
       </Row>
     );
