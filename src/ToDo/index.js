@@ -37,6 +37,7 @@ class ToDo extends PureComponent {
         ? { ...rest, description, state }
         : { ...rest, description }
     );
+    localStorage.setItem(todoList, JSON.stringify(data));
     this.setState({ data: [...data] });
   };
 
