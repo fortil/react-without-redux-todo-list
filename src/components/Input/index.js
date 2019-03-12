@@ -3,8 +3,8 @@ import { Input } from "antd";
 
 class InputComponent extends Component {
   state = {
-    newTask: ''
-  }
+    newTask: ""
+  };
 
   render() {
     const { newTask } = this.state;
@@ -13,11 +13,14 @@ class InputComponent extends Component {
     return (
       <Input
         placeholder="Add a new task"
-        onPressEnter={() => click(newTask)}
+        onPressEnter={() => {
+          click(newTask);
+          this.setState({ newTask: "" });
+        }}
         onChange={({ target }) => this.setState({ newTask: target.value })}
         value={newTask}
       />
-    )
+    );
   }
 }
 
