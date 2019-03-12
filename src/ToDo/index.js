@@ -4,7 +4,16 @@ import { Skeleton, Row, Col, Button, Input, Table } from "antd";
 import { COLUMNS, buttons } from "./columns";
 import "./todo.css";
 
+const todoList = "todoList";
+
 class ToDo extends PureComponent {
+  componentDidMount() {
+    let data = localStorage.getItem(todoList);
+    data = JSON.parse(data || "[]");
+    if (data.length) {
+      this.setState({ data });
+    }
+  }
   state = {
     newTask: "",
     show: "All",
@@ -13,10 +22,12 @@ class ToDo extends PureComponent {
 
   addNewTask = () => {
     const { data, newTask } = this.state;
-    this.setState({
+    const newData = {
       data: [...data, { description: newTask, state: "ToDo" }],
       newTask: ""
-    });
+    };
+    localStorage.setItem(todoList, JSON.stringify(newData.data));
+    this.setState(newData);
   };
 
   setStateTask = (desc, state) => {
@@ -53,7 +64,6 @@ class ToDo extends PureComponent {
 
   render() {
     const { data, newTask, show } = this.state;
-    const {} = this.props;
     const { addNewTask, renderActions } = this;
     const dataSource = data.filter(
       ({ state }) => show === "All" || state === show
