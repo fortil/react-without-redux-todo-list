@@ -8,3 +8,5 @@ export const COLUMNS = [
 ];
 
 export const buttons = [{ name: "All" }, { name: "ToDo" }, { name: "Done" }];
+
+export const btn = [{btn: "Add"}]
