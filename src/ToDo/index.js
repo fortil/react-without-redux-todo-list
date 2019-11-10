@@ -76,11 +76,10 @@ class ToDo extends PureComponent {
                 />
                 {btn.map(({ btn }) => (
                   <Button key={btn}
-                  onClick={addNewTask}>
+                    onClick={addNewTask}>
                     {btn}
                   </Button>
                 ))}
-
               </Col>
               <Row>
                 {buttons.map(({ name }) => (
