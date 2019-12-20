@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { Skeleton, Row, Col, Button, Input, Table } from "antd";
 
-import { COLUMNS, buttons } from "./columns";
+import { COLUMNS, buttons, btn } from "./columns";
 import "./todo.css";
 
 class ToDo extends PureComponent {
@@ -66,6 +66,7 @@ class ToDo extends PureComponent {
             <Col span={21} className="todo">
               <Col className="col">
                 <Input
+                  className="Input"
                   placeholder="Add a new task"
                   onPressEnter={addNewTask}
                   onChange={({ target }) =>
@@ -73,6 +74,12 @@ class ToDo extends PureComponent {
                   }
                   value={newTask}
                 />
+                {btn.map(({ btn }) => (
+                  <Button key={btn}
+                    onClick={addNewTask}>
+                    {btn}
+                  </Button>
+                ))}
               </Col>
               <Row>
                 {buttons.map(({ name }) => (
